@@ -295,7 +295,7 @@ const Payment = (props) => {
       "Transaction-ID":"acf343e78fa14d373b175aa02711f0b6"
     }
     requestOptions1.body = JSON.stringify(data);
-    fetch("http://consumerPayment-1291013180.us-east-1.elb.amazonaws.com/status",requestOptions1).then(function(response){
+    fetch("https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment/status",requestOptions1).then(function(response){
       if(response.ok){
         return response
       }
