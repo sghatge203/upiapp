@@ -1,0 +1,179 @@
+body {
+  background-color: #fff !important;
+}
+.row-gutter {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.height-30 {
+  height: 30px;
+}
+
+.loader-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+}
+.loader-icon {
+  width: 130px;
+}
+.card-pos {
+  position: absolute;
+  top: 45%;
+}
+.form-control:focus {
+  box-shadow: none !important;
+}
+.pay-button {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 3em;
+}
+.padding-card {
+  padding: 2em !important;
+}
+.success-div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  top: 30%;
+}
+.height-190 {
+  height: 190px;
+}
+.payment-title {
+  font-size: 1.8em;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #42b86e;
+}
+.logo-card {
+  text-align: center;
+  margin-top: 3em;
+}
+.amount-box {
+  position: relative;
+  left: 0;
+  right: 0;
+  width: 50%;
+  margin: auto;
+  color: #fff;
+}
+.text-box {
+  border: none !important;
+  border-bottom: 2px solid #000 !important;
+  border-radius: 0px !important;
+  font-weight: bold !important;
+}
+.gateway-card {
+  margin-top: 8em !important;
+}
+
+.amount-section {
+  margin-top: 5em !important;
+}
+.upi-section {
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background: #fff;
+  border-radius: 15px;
+  margin-top: 1em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+.upi-mobile {
+  display: flex;
+}
+.width-100 {
+  width: 100% !important;
+}
+.amount-size {
+  font-size: 2.5em !important;
+  font-weight: bold;
+  border-bottom: 2px solid #fff !important;
+  color: #fff !important;
+}
+.btn-primary {
+  box-shadow: none !important;
+  color: #000 !important;
+  background-color: #ffd986 !important;
+  border-color: #ffd986 !important;
+  font-weight: bold !important;
+  font-size: 1em !important;
+  width: 100%;
+}
+.upi-container {
+  /* position: absolute; */
+  height: 100%;
+  background-color: #7d61ff !important;
+  padding: 0px !important;
+}
+.form-control {
+  background-color: transparent !important;
+}
+.c-white {
+  color: #fff;
+}
+
+.loading {
+  position: absolute;
+  top: 37%;
+  text-align: center;
+  left: 0;
+  margin: auto;
+  right: 0;
+}
+
+.mobile-view{
+  background-color: #7d61ff !important;
+  /* border-radius:45px; */
+  position: relative;
+  border: 1px solid blue;
+}
+.width-33{
+  width: 33%;
+}
+.phone-screen{
+  height: 100px;
+  background:#000;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  color: #fff;
+  padding-top: 2.2em;
+}
+.buttons{
+  height: 153px;
+}
+.numric-btn{
+  background: #DD6066 !important;
+  width: 33%;
+  border: 1px solid #fff !important;
+}
+.numric-btn:hover{
+  background-color: yellowgreen !important;
+}
+.small-mobile{
+  margin-top: 10em;
+}
+.m-t-18{
+  margin-top: 18em;
+  text-align: center;
+}
+.d-center{
+  display: flex;
+  align-items: center;
+
+}
+.font-3em{
+  font-size: 3em;
+}
+.spinner{
+  font-size: 2em;
+}
