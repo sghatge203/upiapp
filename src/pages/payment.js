@@ -26,7 +26,6 @@ var requestOptions = {
     "Access-Control-Allow-Headers": "*",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials":"true",
-    "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS"
     
   },
   body: null,
