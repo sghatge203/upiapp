@@ -82,7 +82,7 @@ const Payment = (props) => {
       data.ReqPay.Payer.name = formData.mobile;
       requestOptions.body = JSON.stringify(data)
 
-      fetch("http://consumerPayment-1291013180.us-east-1.elb.amazonaws.com/payment",requestOptions).then(function(response){
+      fetch("https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment",requestOptions).then(function(response){
         console.log('okk',response)
         if(response.ok){
           return response
