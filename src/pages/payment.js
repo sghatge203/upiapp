@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import psplogo from "../psp.png";
 import { runProgressbar } from "../global/global";
 import audioCall from "../audio.mp3";
+import success from "../success.jpg";
+
 import axios from "axios";
 var requestOptions = {
   method: "POST",
@@ -62,7 +64,8 @@ const Payment = (props) => {
   var [move6, setMove6] = useState(0);
   var [move7, setMove7] = useState(0);
   var [move8, setMove8] = useState(0);
-  const [transactionId,setTransactionId] = useState()
+  const [isMobile, setIsMobile] = useState(false);
+  const [transactionId, setTransactionId] = useState();
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setFormData({
@@ -87,13 +90,13 @@ const Payment = (props) => {
       )
         .then((res) => res.clone().json())
         .then((res) => {
-          if(res.statusCode === 200){
-            setTransactionId(res.body)
+          if (res.statusCode === 200) {
+            setTransactionId(res.body);
           }
           console.log("PaymentResponse", res);
         })
         .catch((err) => {
-          setIsFailure(true)
+          setIsFailure(true);
           console.log("Payment Error", err);
         });
     }
@@ -197,6 +200,11 @@ const Payment = (props) => {
           if (width === 100) {
             // runProgressbar5();
             playAudio();
+            setIsMobile(true);
+            setTimeout(() => {
+              runProgressbar5();
+              getStatus();
+            }, 20000);
           }
         }
       }
@@ -296,7 +304,7 @@ const Payment = (props) => {
 
   const getStatus = async () => {
     let data = {
-      "Transaction-ID": "acf343e78fa14d373b175aa02711f0b6",
+      "Transaction-ID": transactionId,
     };
     requestOptions1.body = JSON.stringify(data);
     fetch(
@@ -305,10 +313,18 @@ const Payment = (props) => {
     )
       .then((res) => res.clone().json())
       .then((res) => {
+        setIsMobile(false);
         console.log("statusResponse", res);
-        setIsSuccess(true);
+        setFormData({});
+        if (res.body == "true") {
+          setIsSuccess(true);
+        } else {
+          setIsFailure(true);
+        }
       })
       .catch((err) => {
+        setFormData({});
+        setIsMobile(false);
         setIsFailure(true);
         console.log("statusError", err);
       });
@@ -327,10 +343,18 @@ const Payment = (props) => {
               </div>
             ) : null}
             {isSuccess ? (
+              <div className="loader-bg">
+                <div className="loading">
+                  <img src={success} alt="success" className="height-190" />
+                  <div className="payment-title">Payment Successfull</div>
+                </div>
+              </div>
+            ) : null}
+            {/* {isSuccess ? (
               <Alert className="mt-3" color="success">
                 Payment Successfull
               </Alert>
-            ) : null}
+            ) : null} */}
             {isFailure ? (
               <Alert className="mt-3" color="danger">
                 Payment Failure !!
@@ -480,6 +504,12 @@ const Payment = (props) => {
                 </button>
               </div>
             </div>
+            {isMobile ? (
+              <div className="text-center">
+                <i class="fas fa-circle-notch fa-spin spinner"></i>
+                <div>Request processing...</div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
