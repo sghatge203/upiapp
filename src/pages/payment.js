@@ -298,7 +298,7 @@ const Payment = (props) => {
     requestOptions1.body = JSON.stringify(data);
     fetch("https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment/status",requestOptions1).then(function(response){
       if(response.ok){
-        return response
+        return response.clone().json()
       }
       throw new Error("Network response not ok")
     }).then((res)=>{
