@@ -16,7 +16,7 @@ body {
   margin: auto;
   top: 0;
   bottom: 0;
-  background: #fff;
+  background: #f4f5f6;
 }
 .loader-icon {
   width: 130px;
@@ -44,17 +44,23 @@ body {
   top: 30%;
 }
 .height-190 {
-  height: 190px;
+  height: 100px;
 }
 .payment-title {
-  font-size: 1.8em;
+  font-size: 1.2em;
   font-weight: 600;
   font-family: sans-serif;
   color: #42b86e;
 }
+.payment-title-fail{
+  font-size: 1.2em;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #E74C3C;
+}
 .logo-card {
   text-align: center;
-  margin-top: 3em;
+  padding-top: 2em;
 }
 .amount-box {
   position: relative;
@@ -130,50 +136,286 @@ body {
   right: 0;
 }
 
-.mobile-view{
+.mobile-view {
   background-color: #7d61ff !important;
   /* border-radius:45px; */
   position: relative;
   border: 1px solid blue;
 }
-.width-33{
+.width-33 {
   width: 33%;
 }
-.phone-screen{
+.phone-screen {
   height: 100px;
-  background:#000;
+  background: #000;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   text-align: center;
   color: #fff;
   padding-top: 2.2em;
 }
-.buttons{
-  height: 153px;
+.buttons {
+  height: 132px;
+  background: #7e7777;
 }
-.numric-btn{
-  background: #DD6066 !important;
+.numric-btn {
+  background: #d9d0d1 !important;
   width: 33%;
   border: 1px solid #fff !important;
+  font-size: 6px !important;
+
 }
-.numric-btn:hover{
+.numric-btn:hover {
   background-color: yellowgreen !important;
 }
-.small-mobile{
+.small-mobile {
   margin-top: 10em;
 }
-.m-t-18{
+.m-t-18 {
   margin-top: 18em;
   text-align: center;
 }
-.d-center{
+.d-center {
   display: flex;
   align-items: center;
-
 }
-.font-3em{
+.font-3em {
   font-size: 3em;
 }
-.spinner{
+.spinner {
   font-size: 2em;
+}
+
+/* Smartphone Design */
+.smartphone {
+  position: relative;
+  width: 99%;
+  height: 640px;
+  margin: auto;
+  border: 16px black solid;
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: 36px;
+}
+
+/* The horizontal line on the top of the device */
+.smartphone:before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+/* The circle on the bottom of the device */
+.smartphone:after {
+  content: "";
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 50%;
+  bottom: -65px;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 50%;
+}
+
+/* The screen (or content) of the device */
+.smartphone .content {
+  width: 100%;
+  height: 400px;
+  background: white;
+  position: relative;
+  top: -1px;
+}
+
+.phone-header {
+  background-color: #7d61ff;
+  height: 160px;
+}
+.phone-content {
+  border-top-left-radius: 35px;
+  background: white;
+  height: 86%;
+  border-top-right-radius: 35px;
+  margin-top: -50px;
+}
+.phone-logo {
+  background: #ffffff;
+  height: 100px;
+  position: relative;
+  width: 65%;
+  margin: auto;
+  border-radius: 23px;
+  margin-top: -80px;
+}
+.form-content {
+  padding-top: 5em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.enter-amount {
+  width: 70%;
+  margin: auto;
+}
+.input-attributes {
+  font-size: 14px;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.text-amount {
+  border: none !important;
+  border-bottom: 2px solid #20347b !important;
+  border-radius: 0px !important;
+  text-align: center !important;
+  font-weight: bold !important;
+}
+.ruppe-symbol {
+  position: absolute;
+  font-weight: bold;
+  font-size: 1.6em;
+}
+.mobile-form {
+  display: flex;
+}
+.w-26 {
+  width: 26% !important;
+}
+.w-66 {
+  width: 76% !important;
+}
+.at-sign {
+  text-align: center;
+  font-weight: bold;
+    margin-top: 1em;
+}
+.make-payment {
+  background-color: #7d61ff;
+  height: 48px;
+  text-align: center;
+  padding-top: 0.7em;
+  color: #fff;
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+/* Small Phone mobile */
+/* The device with borders */
+.telephone {
+  position: relative;
+  width: 71%;
+  height: 63%;
+  margin: auto;
+  border: 16px black solid;
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: 36px;
+  top: 18%;
+}
+
+/* The horizontal line on the top of the device */
+.telephone:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+/* The circle on the bottom of the device */
+.telephone:after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 50%;
+  bottom: -65px;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 50%;
+}
+
+/* The screen (or content) of the device */
+.telephone .content {
+  width: 100%;
+  height: 60%;
+  background: white;
+  position: relative;
+    top: -1px;
+}
+.mart-title{
+  padding-top: 0.9em;
+    color: #fff;
+    font-size: 1.5em;
+    font-family: unset;
+    font-weight: 600;
+}
+.green-btn{
+  background-color: #19873E !important;
+}
+.red-btn{
+  background-color: #d35d5d  !important;
+}
+.height-130{
+  height: 130px;
+}
+.psp-color{
+  color: #19873E;
+}
+.issuer-color{
+  color: #d35d5d;
+}
+.psp-text{
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+.mleft-12{
+  margin-left: -12px;
+}
+.go-back-button{
+  border: 1px solid var(--bs-blue);
+    width: 50%;
+    margin: auto;
+    margin-top: 3em;
+    padding: 0.5em;
+    border-radius: 8px;
+    background: #fcfffd;
+    color: var(--bs-blue);
+    cursor: pointer;
+}
+.go-back-button:hover{
+  background-color: var(--bs-blue);
+  color: #fff;
+}
+.go-back-button-new{
+  border: 1px solid var(--bs-blue);
+  width: 70%;
+  margin: auto;
+  margin-top: 3em;
+  padding: 0.5em;
+  border-radius: 8px;
+  background: #fcfffd;
+  color: var(--bs-blue);
+  cursor: pointer;
+}
+.go-back-button-new:hover{
+  background-color: var(--bs-blue);
+  color: #fff;
 }
