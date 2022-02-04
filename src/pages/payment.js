@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  Progress,
-  Alert,
-} from "reactstrap";
-import UpiForm from "../components/forms/upi-form";
+import React, { useState } from "react";
+import { Progress } from "reactstrap";
 import logo from "../logo.png";
-import { getStatusService, paymentService } from "../services/services";
 import loader from "../spinner.gif";
 import { PaymentModel } from "../interface/payment.interface";
-import { useNavigate } from "react-router-dom";
-import psplogo from "../psp.png";
-import { runProgressbar } from "../global/global";
 import audioCall from "../audio.mp3";
 import success from "../success.jpg";
 import npcilogo from "../npci.png";
 import screen from "../screen.png";
-import failIcon from '../fail.png'
-import axios from "axios";
+import failIcon from "../fail.png";
 var requestOptions = {
   method: "POST",
   mode: "cors",
@@ -46,7 +32,6 @@ const requestOptions1 = {
   body: null,
 };
 const Payment = (props) => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     mobile: "",
     bankId: "",
@@ -56,7 +41,6 @@ const Payment = (props) => {
   const [data, setData] = useState(PaymentModel);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isFailure, setIsFailure] = useState(false);
-  const [message, setMessage] = useState();
   var [count, setCount] = useState(0);
   var [move1, setMove1] = useState(0);
   var [move2, setMove2] = useState(0);
@@ -69,6 +53,7 @@ const Payment = (props) => {
   const [isMobile, setIsMobile] = useState(false);
   var [transactionId, setTransactionId] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
+  var [interval, setInter] = useState();
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setFormData({
@@ -86,7 +71,6 @@ const Payment = (props) => {
       data.ReqPay.Payer.addr = formData.mobile + "@" + formData.bankId;
       data.ReqPay.Payer.name = formData.mobile;
       requestOptions.body = JSON.stringify(data);
-      console.log("formD", data);
       fetch(
         "https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment",
         requestOptions
@@ -95,11 +79,13 @@ const Payment = (props) => {
         .then((res) => {
           localStorage.setItem("TXID", res.body);
           setTransactionId(res.body);
-          console.log("PaymentResponse", res);
+          interval = setInterval(() => {
+            getStatus();
+          }, 3000);
         })
         .catch((err) => {
+          setIsMobile(false);
           setIsFailure(true);
-          console.log("Payment Error", err);
         });
     }
   };
@@ -200,23 +186,14 @@ const Payment = (props) => {
           width++;
           setMove4(width);
           if (width === 100) {
-            // runProgressbar5();
-            playAudio();
             setIsMobile(true);
-            setTimeout(() => {
-              runProgressbar5();
-              getStatus();
-            }, 45000);
           }
         }
       }
     }
   };
 
-  const clickKeyboard = () => {
-    runProgressbar5();
-    getStatus();
-  };
+  const clickKeyboard = () => {};
   const runProgressbar5 = () => {
     count = 0;
     if (count === 0) {
@@ -305,7 +282,6 @@ const Payment = (props) => {
   }
 
   const getStatus = async () => {
-    console.log("transactionId", transactionId);
     let data = {
       "Transaction-ID": localStorage.getItem("TXID"),
     };
@@ -317,28 +293,55 @@ const Payment = (props) => {
       .then((res) => res.clone().json())
       .then((res) => {
         setIsMobile(false);
-        console.log("statusResponse", res);
         clearData();
+        if (res.body == "In-Progress") {
+          setIsMobile(true);
+        }
         if (res.body == "true") {
-          setIsSuccess(true);
-          setIsFailure(false);
-        } else {
-          setIsFailure(true);
+          clearIntervalTime();
+          runProgressbar5();
+          setTimeout(() => {
+            setIsSuccess(true);
+            setIsFailure(false);
+          }, 2000);
+        }
+        if (res.body == "false") {
+          setTimeout(() => {
+            clearIntervalTime();
+            runProgressbar5();
+            setIsSuccess(false);
+            setIsFailure(true);
+          }, 2000);
         }
       })
       .catch((err) => {
         clearData();
         setIsMobile(false);
         setIsFailure(true);
-        console.log("statusError", err);
       });
   };
 
-  const goback = ()=>{
-    setIsFailure(false)
-    clearData()
-    setIsSuccess(false)
-  }
+  const goback = () => {
+    setIsFailure(false);
+    clearData();
+    setIsSuccess(false);
+    clearCount();
+  };
+
+  const clearIntervalTime = () => {
+    clearInterval(interval);
+  };
+
+  const clearCount = () => {
+    setMove1(0);
+    setMove2(0);
+    setMove3(0);
+    setMove4(0);
+    setMove5(0);
+    setMove6(0);
+    setMove7(0);
+    setMove8(0);
+  };
   return (
     <>
       <div className="container-fluid">
@@ -417,121 +420,37 @@ const Payment = (props) => {
                 </div>
               </div>
               {isLoader ? (
-              <div className="loader-bg">
-                <div className="loading">
-                  <img src={loader} alt="loading" className="height-130"/>
-                  <div>Payment Processsing</div>
+                <div className="loader-bg">
+                  <div className="loading">
+                    <img src={loader} alt="loading" className="height-130" />
+                    <div>Payment Processsing</div>
+                  </div>
                 </div>
-              </div>
-            ) : null}
-            {isSuccess ? (
-              <div className="loader-bg">
-                <div className="loading">
-                  <img src={success} alt="success" className="height-190" />
-                  <div className="payment-title">Payment Successfull</div>
-                  <div className="go-back-button-new" onClick={goback}>Make New Payment</div>
-
+              ) : null}
+              {isSuccess ? (
+                <div className="loader-bg">
+                  <div className="loading">
+                    <img src={success} alt="success" className="height-190" />
+                    <div className="payment-title">Payment Successfull</div>
+                    <div className="go-back-button-new" onClick={goback}>
+                      Make New Payment
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ) : null}
-             {isFailure ? (
-              <div className="loader-bg">
-                <div className="loading">
-                  <img src={failIcon} alt="success" className="height-190" />
-                  <div className="payment-title-fail">Payment Failure</div>
-                  <div className="go-back-button" onClick={goback}>Retry</div>
+              ) : null}
+              {isFailure ? (
+                <div className="loader-bg">
+                  <div className="loading">
+                    <img src={failIcon} alt="success" className="height-190" />
+                    <div className="payment-title-fail">Payment Failure</div>
+                    <div className="go-back-button" onClick={goback}>
+                      Retry
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
             </div>
           </div>
-          {/* <div className="col-md-3 mobile-view">
-            {isLoader ? (
-              <div className="loader-bg">
-                <div className="loading">
-                  <i class="fas fa-circle-notch fa-spin spinner"></i>
-                  <div>Payment Processsing...</div>
-                </div>
-              </div>
-            ) : null}
-            {isSuccess ? (
-              <div className="loader-bg">
-                <div className="loading">
-                  <img src={success} alt="success" className="height-190" />
-                  <div className="payment-title">Payment Successfull</div>
-                </div>
-              </div>
-            ) : null}
-            {isFailure ? (
-              <Alert className="mt-3" color="danger">
-                Payment Failure !!
-              </Alert>
-            ) : null}
-
-            <div className="gateway-card">
-              <div className="logo-card">
-                <img src={logo} className="height-30" alt="logo" />
-              </div>
-            </div>
-            <div className="amount-section">
-              <div className="text-center c-white">
-                <strong>Enter amount</strong>
-              </div>
-              <div className="text-center amount-box">
-                <input
-                  name="amount"
-                  value={formData.amount}
-                  onChange={handleChange}
-                  type="text"
-                  className="form-control text-center text-box amount-size"
-                  required
-                />
-              </div>
-            </div>
-            <div className="upi-section">
-              <div className="mt-2 mb-5">
-                <strong>Enter your upi id</strong>
-              </div>
-              <div className="upi-mobile">
-                <input
-                  value={formData.mobile}
-                  name="mobile"
-                  placeholder="Mobile number..."
-                  onChange={handleChange}
-                  type="text"
-                  required
-                  className="form-control text-box"
-                />
-                <span>@</span>
-                <div>
-                  <select
-                    id="bankId"
-                    value={formData.bankId}
-                    name="bankId"
-                    type="select"
-                    onChange={handleChange}
-                    required
-                    className="form-control text-box"
-                  >
-                    <option value={""}>Select</option>
-                    <option value={"icici"}>icici</option>
-                    <option value={"ybl"}>ybl</option>
-                    <option value={"okhdfcbank"}>okhdfcbank</option>
-                    <option value={"okaxis"}>okaxis</option>
-                    <option value={"oksbi"}>oksbi</option>
-                  </select>
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary pay-button btn-lg"
-                onClick={handlePayment}
-              >
-                Request Money
-              </button>
-            </div>
-          </div> */}
-
           <div className="col-md-7">
             <div className="m-t-18">
               <div className="row">
@@ -592,93 +511,81 @@ const Payment = (props) => {
                   >
                     <i className="fas fa-phone-slash"></i>
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     1
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     2
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     3
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     4
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     5
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     6
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     7
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     8
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     9
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     *
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     0
                   </button>
-                  <button className="btn numric-btn" onClick={clickKeyboard}>
+                  <button
+                    className={`${isMobile ? "blink_me" : null} btn numric-btn`}
+                    onClick={clickKeyboard}
+                  >
                     #
                   </button>
                 </div>
               </div>
             </div>
-
-            {/* <div className="small-mobile">
-              <div className="phone-screen">Mobile Phone</div>
-              <div className="buttons">
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  1
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  2
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  3
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  4
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  5
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  6
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  7
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  8
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  9
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  *
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  0
-                </button>
-                <button className="btn numric-btn" onClick={clickKeyboard}>
-                  #
-                </button>
-              </div>
-            </div> */}
-            {isMobile ? (
-              <div className="text-center">
-                <i class="fas fa-circle-notch fa-spin spinner"></i>
-                <div>Request processing...</div>
-              </div>
-            ) : null}
           </div>
         </div>
       </div>

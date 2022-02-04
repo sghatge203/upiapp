@@ -419,3 +419,13 @@ body {
   background-color: var(--bs-blue);
   color: #fff;
 }
+.blink_me {
+  animation: blinker 1s linear infinite;
+  background: #7d61ff !important;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
