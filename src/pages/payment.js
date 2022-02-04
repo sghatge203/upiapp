@@ -90,7 +90,7 @@ const Payment = (props) => {
       )
         .then((res) => res.clone().json())
         .then((res) => {
-          if (res.statusCode === 200) {
+          if (res.statusCode == 200) {
             setTransactionId(res.body);
           }
           console.log("PaymentResponse", res);
@@ -303,6 +303,7 @@ const Payment = (props) => {
   }
 
   const getStatus = async () => {
+    console.log('transactionId',transactionId)
     let data = {
       "Transaction-ID": transactionId,
     };
@@ -318,6 +319,7 @@ const Payment = (props) => {
         clearData()
         if (res.body == "true") {
           setIsSuccess(true);
+          setIsFailure(false);
         } else {
           setIsFailure(true);
         }
