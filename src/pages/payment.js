@@ -62,7 +62,7 @@ const Payment = (props) => {
   var [move6, setMove6] = useState(0);
   var [move7, setMove7] = useState(0);
   var [move8, setMove8] = useState(0);
-
+  const [transactionId,setTransactionId] = useState()
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setFormData({
@@ -87,9 +87,13 @@ const Payment = (props) => {
       )
         .then((res) => res.clone().json())
         .then((res) => {
+          if(res.statusCode === 200){
+            setTransactionId(res.body)
+          }
           console.log("PaymentResponse", res);
         })
         .catch((err) => {
+          setIsFailure(true)
           console.log("Payment Error", err);
         });
     }
@@ -296,7 +300,7 @@ const Payment = (props) => {
     };
     requestOptions1.body = JSON.stringify(data);
     fetch(
-      "https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment/status",
+      "https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment",
       requestOptions1
     )
       .then((res) => res.clone().json())
