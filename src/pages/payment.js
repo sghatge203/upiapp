@@ -65,7 +65,7 @@ const Payment = (props) => {
   var [move7, setMove7] = useState(0);
   var [move8, setMove8] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [transactionId, setTransactionId] = useState();
+  var [transactionId, setTransactionId] = useState("");
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setFormData({
@@ -90,9 +90,8 @@ const Payment = (props) => {
       )
         .then((res) => res.clone().json())
         .then((res) => {
-          if (res.statusCode == 200) {
+          localStorage.setItem("TXID",res.body)
             setTransactionId(res.body);
-          }
           console.log("PaymentResponse", res);
         })
         .catch((err) => {
@@ -305,7 +304,7 @@ const Payment = (props) => {
   const getStatus = async () => {
     console.log('transactionId',transactionId)
     let data = {
-      "Transaction-ID": transactionId,
+      "Transaction-ID": localStorage.getItem("TXID"),
     };
     requestOptions1.body = JSON.stringify(data);
     fetch(
