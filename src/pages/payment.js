@@ -204,7 +204,7 @@ const Payment = (props) => {
             setTimeout(() => {
               runProgressbar5();
               getStatus();
-            }, 20000);
+            }, 30000);
           }
         }
       }
@@ -315,7 +315,7 @@ const Payment = (props) => {
       .then((res) => {
         setIsMobile(false);
         console.log("statusResponse", res);
-        setFormData({});
+        clearData()
         if (res.body == "true") {
           setIsSuccess(true);
         } else {
@@ -323,7 +323,7 @@ const Payment = (props) => {
         }
       })
       .catch((err) => {
-        setFormData({});
+        clearData()
         setIsMobile(false);
         setIsFailure(true);
         console.log("statusError", err);
