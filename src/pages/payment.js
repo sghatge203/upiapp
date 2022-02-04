@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import psplogo from "../psp.png";
 import { runProgressbar } from "../global/global";
 import audioCall from "../audio.mp3";
-import axios from 'axios';
+import axios from "axios";
 var requestOptions = {
   method: "POST",
   mode: "cors",
@@ -25,8 +25,7 @@ var requestOptions = {
     "Content-Type": "application/json; charset=UTF-8",
     "Access-Control-Allow-Headers": "*",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials":"true",
-    
+    "Access-Control-Allow-Credentials": "true",
   },
   body: null,
 };
@@ -38,9 +37,9 @@ const requestOptions1 = {
     "Content-Type": "application/json; charset=UTF-8",
     "Access-Control-Allow-Headers": "*",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials":"true",
+    "Access-Control-Allow-Credentials": "true",
   },
-  body:null
+  body: null,
 };
 const Payment = (props) => {
   const navigate = useNavigate();
@@ -71,7 +70,7 @@ const Payment = (props) => {
       [name]: value,
     });
   };
-  const handlePayment = async(e) => {
+  const handlePayment = async (e) => {
     runProgressbar1();
     if (!validate()) {
       e.preventDefault();
@@ -80,19 +79,19 @@ const Payment = (props) => {
       data.ReqPay.Payer.Amount.value = formData.amount;
       data.ReqPay.Payer.addr = formData.mobile + "@" + formData.bankId;
       data.ReqPay.Payer.name = formData.mobile;
-      requestOptions.body = JSON.stringify(data)
+      requestOptions.body = JSON.stringify(data);
 
-      fetch("https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment",requestOptions).then(function(response){
-        console.log('okk',response)
-        if(response.ok){
-          return response
-        }
-        throw new Error("Network response not ok")
-      }).then((res)=>{
-        console.log('PaymentResponse',res)
-      }).catch((err)=>{
-        console.log('Payment Error',err)
-      });
+      fetch(
+        "https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment",
+        requestOptions
+      )
+        .then((res) => res.clone().json())
+        .then((res) => {
+          console.log("PaymentResponse", res);
+        })
+        .catch((err) => {
+          console.log("Payment Error", err);
+        });
     }
   };
 
@@ -291,23 +290,24 @@ const Payment = (props) => {
     new Audio(audioCall).play();
   }
 
-  const getStatus = async() => {
+  const getStatus = async () => {
     let data = {
-      "Transaction-ID":"acf343e78fa14d373b175aa02711f0b6"
-    }
+      "Transaction-ID": "acf343e78fa14d373b175aa02711f0b6",
+    };
     requestOptions1.body = JSON.stringify(data);
-    fetch("https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment/status",requestOptions1).then(function(response){
-      if(response.ok){
-        return response.clone().json()
-      }
-      throw new Error("Network response not ok")
-    }).then((res)=>{
-      console.log('statusResponse',res)
-     setIsSuccess(true)
-    }).catch((err)=>{
-      setIsFailure(true)
-      console.log('statusError',err)
-    });
+    fetch(
+      "https://et32mpbgpe.execute-api.us-east-1.amazonaws.com/Dev/payment/status",
+      requestOptions1
+    )
+      .then((res) => res.clone().json())
+      .then((res) => {
+        console.log("statusResponse", res);
+        setIsSuccess(true);
+      })
+      .catch((err) => {
+        setIsFailure(true);
+        console.log("statusError", err);
+      });
   };
   return (
     <>
