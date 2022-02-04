@@ -203,7 +203,7 @@ const Payment = (props) => {
             setTimeout(() => {
               runProgressbar5();
               getStatus();
-            }, 30000);
+            }, 45000);
           }
         }
       }
