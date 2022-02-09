@@ -52,11 +52,11 @@ body {
   font-family: sans-serif;
   color: #42b86e;
 }
-.payment-title-fail{
+.payment-title-fail {
   font-size: 1.2em;
   font-weight: 600;
   font-family: sans-serif;
-  color: #E74C3C;
+  color: #e74c3c;
 }
 .logo-card {
   text-align: center;
@@ -163,7 +163,6 @@ body {
   width: 33%;
   border: 1px solid #fff !important;
   font-size: 6px !important;
-
 }
 .numric-btn:hover {
   background-color: yellowgreen !important;
@@ -294,7 +293,7 @@ body {
 .at-sign {
   text-align: center;
   font-weight: bold;
-    margin-top: 1em;
+  margin-top: 1em;
 }
 .make-payment {
   background-color: #7d61ff;
@@ -306,8 +305,6 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
-
-
 
 /* Small Phone mobile */
 /* The device with borders */
@@ -325,7 +322,7 @@ body {
 
 /* The horizontal line on the top of the device */
 .telephone:before {
-  content: '';
+  content: "";
   display: block;
   width: 60px;
   height: 5px;
@@ -339,7 +336,7 @@ body {
 
 /* The circle on the bottom of the device */
 .telephone:after {
-  content: '';
+  content: "";
   display: block;
   width: 35px;
   height: 35px;
@@ -357,54 +354,58 @@ body {
   height: 60%;
   background: white;
   position: relative;
-    top: -1px;
+  top: -1px;
 }
-.mart-title{
+.mart-title {
   padding-top: 0.9em;
-    color: #fff;
-    font-size: 1.5em;
-    font-family: unset;
-    font-weight: 600;
+  color: #fff;
+  font-size: 1.5em;
+  font-family: unset;
+  font-weight: 600;
 }
-.green-btn{
-  background-color: #19873E !important;
+.green-btn {
+  background-color: #19873e !important;
 }
-.red-btn{
-  background-color: #d35d5d  !important;
+.red-btn {
+  background-color: #d35d5d !important;
 }
-.height-130{
+.height-130 {
   height: 130px;
 }
-.psp-color{
-  color: #19873E;
+.psp-color {
+  color: #19873e;
+  font-size: 4em;
+  margin-top: -9px;
 }
-.issuer-color{
+.issuer-color {
   color: #d35d5d;
+  font-size: 4em;
+  margin-top: -9px;
 }
-.psp-text{
+.psp-text {
   text-align: center;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: bold;
 }
-.mleft-12{
+.mleft-12 {
   margin-left: -12px;
 }
-.go-back-button{
+.go-back-button {
   border: 1px solid var(--bs-blue);
-    width: 50%;
-    margin: auto;
-    margin-top: 3em;
-    padding: 0.5em;
-    border-radius: 8px;
-    background: #fcfffd;
-    color: var(--bs-blue);
-    cursor: pointer;
+  width: 50%;
+  margin: auto;
+  margin-top: 3em;
+  padding: 0.5em;
+  border-radius: 8px;
+  background: #fcfffd;
+  color: var(--bs-blue);
+  cursor: pointer;
 }
-.go-back-button:hover{
+.go-back-button:hover {
   background-color: var(--bs-blue);
   color: #fff;
 }
-.go-back-button-new{
+.go-back-button-new {
   border: 1px solid var(--bs-blue);
   width: 70%;
   margin: auto;
@@ -415,7 +416,7 @@ body {
   color: var(--bs-blue);
   cursor: pointer;
 }
-.go-back-button-new:hover{
+.go-back-button-new:hover {
   background-color: var(--bs-blue);
   color: #fff;
 }
@@ -423,7 +424,12 @@ body {
   animation: blinker 1s linear infinite;
   background: #7d61ff !important;
 }
+.npcilogo{
+  height: 43px;
+  margin-top: -11px;
+  margin-right: -7px;
 
+}
 @keyframes blinker {
   50% {
     opacity: 0;

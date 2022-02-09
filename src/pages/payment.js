@@ -6,7 +6,7 @@ import { PaymentModel } from "../interface/payment.interface";
 import audioCall from "../audio.mp3";
 import success from "../success.jpg";
 import npcilogo from "../npci.png";
-import screen from "../screen.png";
+import screen from "../screen1.png";
 import failIcon from "../fail.png";
 var requestOptions = {
   method: "POST",
@@ -454,35 +454,40 @@ const Payment = (props) => {
           <div className="col-md-7">
             <div className="m-t-18">
               <div className="row">
-                <div className="col-md-2">
+                <div className="col-md-2 p-0">
                   <Progress value={move1} id="myid" />
                   <br />
                   <Progress value={move8} className="justify-content-end" />
                 </div>
-                <div className="col-md-1">
+                <div className="col-md-1 p-0">
                   <i class="fas fa-university font-3em psp-color"></i>
-                  <div className="psp-text">Aquairer/PSP</div>
+                  <div className="psp-text">Merchant bank/</div>
+                  <div className="psp-text">Acquirer/</div>
+                  <div className="psp-text">PSP</div>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-2 p-0">
                   <Progress value={move2} />
                   <br />
                   <Progress value={move7} className="justify-content-end" />
                 </div>
-                <div className="col-md-1">
+                <div className="col-md-2 p-0">
                   <div className="pt-3 mleft-12">
-                    <img src={npcilogo} className="height-30" alt="npcilogo" />
+                    <img src={npcilogo} className="npcilogo" alt="npcilogo" />
+                    <div className="psp-text">NPCI</div>
                   </div>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-2 p-0">
                   <Progress value={move3} />
                   <br />
                   <Progress value={move6} className="justify-content-end" />
                 </div>
-                <div className="col-md-1">
+                <div className="col-md-1 p-0">
                   <i class="fas fa-university font-3em issuer-color"></i>
-                  <div className="psp-text">Issuer/PSP</div>
+                  <div className="psp-text">Customer bank/</div>
+                  <div className="psp-text"> Issuer/</div>
+                  <div className="psp-text">PSP</div>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2 p-0">
                   <Progress value={move4} /> <br />
                   <Progress value={move5} className="justify-content-end" />
                 </div>
