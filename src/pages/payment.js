@@ -473,7 +473,6 @@ const Payment = (props) => {
                 <div className="col-md-2 p-0">
                   <div className="pt-3 mleft-12">
                     <img src={npcilogo} className="npcilogo" alt="npcilogo" />
-                    <div className="psp-text">NPCI</div>
                   </div>
                 </div>
                 <div className="col-md-2 p-0">
