@@ -8,6 +8,7 @@ import success from "../success.jpg";
 import npcilogo from "../npci.png";
 import screen from "../screen1.png";
 import failIcon from "../fail.png";
+import qrcode from "../qr.png";
 var requestOptions = {
   method: "POST",
   mode: "cors",
@@ -293,7 +294,6 @@ const Payment = (props) => {
       .then((res) => res.clone().json())
       .then((res) => {
         setIsMobile(false);
-        clearData();
         if (res.body == "In-Progress") {
           setIsMobile(true);
         }
@@ -303,7 +303,7 @@ const Payment = (props) => {
           setTimeout(() => {
             setIsSuccess(true);
             setIsFailure(false);
-          }, 2000);
+          }, 5000);
         }
         if (res.body == "false") {
           setTimeout(() => {
@@ -311,7 +311,7 @@ const Payment = (props) => {
             runProgressbar5();
             setIsSuccess(false);
             setIsFailure(true);
-          }, 2000);
+          }, 5000);
         }
       })
       .catch((err) => {
@@ -350,6 +350,11 @@ const Payment = (props) => {
             <div className="smartphone">
               <div className="content">
                 <div className="phone-header">
+                  <div className="barcode">
+                    <span>
+                      <i className="fal fa-barcode-read"></i>
+                    </span>
+                  </div>
                   <div className="text-center mart-title">Minimart</div>
                 </div>
                 <div className="phone-logo">
@@ -383,7 +388,7 @@ const Payment = (props) => {
                           value={formData.mobile}
                           name="mobile"
                           onChange={handleChange}
-                          placeholder="Mobile..."
+                          placeholder="Enter mobile no"
                           type="text"
                           required
                           className="form-control w-66 text-box"
@@ -402,7 +407,7 @@ const Payment = (props) => {
                           required
                           className="form-control form-select text-box"
                         >
-                          <option value={""}>Select</option>
+                          <option value={""}>Select VPA Address</option>
                           <option value={"icici"}>icici</option>
                           <option value={"ybl"}>ybl</option>
                           <option value={"okhdfcbank"}>okhdfcbank</option>
@@ -455,6 +460,7 @@ const Payment = (props) => {
             <div className="m-t-18">
               <div className="row">
                 <div className="col-md-2 p-0">
+                  <img className="qrcode" src={qrcode} alt="qr" />
                   <Progress value={move1} id="myid" />
                   <br />
                   <Progress value={move8} className="justify-content-end" />
@@ -462,7 +468,7 @@ const Payment = (props) => {
                 <div className="col-md-1 p-0">
                   <i class="fas fa-university font-3em psp-color"></i>
                   <div className="psp-text">Merchant bank/</div>
-                  <div className="psp-text">Acquirer/</div>
+                  <div className="psp-text">Acquirer</div>
                   <div className="psp-text">PSP</div>
                 </div>
                 <div className="col-md-2 p-0">
@@ -483,7 +489,7 @@ const Payment = (props) => {
                 <div className="col-md-1 p-0">
                   <i class="fas fa-university font-3em issuer-color"></i>
                   <div className="psp-text">Customer bank/</div>
-                  <div className="psp-text"> Issuer/</div>
+                  <div className="psp-text"> Issuer</div>
                   <div className="psp-text">PSP</div>
                 </div>
                 <div className="col-md-2 p-0">
@@ -497,7 +503,18 @@ const Payment = (props) => {
             <div class="telephone">
               <div class="content">
                 <div className="screen">
-                  <img src={screen} alt="screen" className="width-100 " />
+                  {isSuccess ? (
+                    <div className="message-feature">
+                      Payment of Rs. {formData.amount} is debited from your bank
+                      account.
+                    </div>
+                  ) : isFailure ? (
+                    <div className="message-feature">
+                      Something went wrong your payment is declined.
+                    </div>
+                  ) : (
+                    <img src={screen} alt="screen" className="width-100 " />
+                  )}
                 </div>
                 <div className="buttons">
                   <button

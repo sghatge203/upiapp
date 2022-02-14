@@ -74,7 +74,7 @@ body {
   border: none !important;
   border-bottom: 2px solid #000 !important;
   border-radius: 0px !important;
-  font-weight: bold !important;
+  font-weight: 400 !important;
 }
 .gateway-card {
   margin-top: 8em !important;
@@ -362,6 +362,7 @@ body {
   font-size: 1.5em;
   font-family: unset;
   font-weight: 600;
+  padding-left: 2em;
 }
 .green-btn {
   background-color: #19873e !important;
@@ -424,11 +425,25 @@ body {
   animation: blinker 1s linear infinite;
   background: #7d61ff !important;
 }
-.npcilogo{
+.npcilogo {
   height: 43px;
   margin-top: -11px;
   margin-right: -7px;
-
+}
+.barcode {
+  float: right;
+  padding: 0.5em;
+  cursor: pointer;
+}
+.qrcode{
+  height: 150px;
+  position: absolute;
+  top: 20px;
+  cursor: pointer;
+}
+.message-feature{
+  height:152px;
+  font-family: sans-serif;
 }
 @keyframes blinker {
   50% {
